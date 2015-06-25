@@ -714,7 +714,6 @@ class Gui:
             elif self.whatProgram['VNC'] == 0 and len(parameters) > 5: return True
             else: return False
         if parameters[0] == 'RDP':
-            print(len(parameters))
             if self.whatProgram['RDP'] == 1 and len(parameters) == 14: return True
             elif self.whatProgram['RDP'] == 0 and len(parameters) < 14: return True
             else: return False
