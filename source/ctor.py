@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import time, properties
+import time, properties, webbrowser
 from GLOBAL import *
 
 def f_write(f_name, cfg):
@@ -220,6 +220,16 @@ class Citrix:
     def preferences():
         os.system('/opt/Citrix/ICAClient/util/configmgr --icaroot /opt/Citrix/ICAClient &')
 
+class Web:
+    """Класс для настройки подключения к WEB-ресурсу"""
+    def start(self, args):
+        if type(args) == list:
+            addr = args[0]
+        else: addr = args
+        if  not addr.find("://") != -1:
+            addr = "http://" + addr
+        webbrowser.open (addr, new = 2)        
+
 def definition(protocol):
     """Функция определения протокола"""
     whatProgram = properties.loadFromFile('default.conf') #загрузка параметров с выбором программ для подключения
@@ -243,6 +253,8 @@ def definition(protocol):
         connect = Vmware()
     elif protocol == 'CITRIX':
         connect = Citrix()
+    elif protocol == 'WWW':
+        connect = Web()
     return connect  
 
 def __main():

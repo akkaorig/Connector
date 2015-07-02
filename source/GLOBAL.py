@@ -13,7 +13,7 @@ WORKFOLDER = HOMEFOLDER + '/.connector/'
 DEFAULT = dict(RDP = 0, VNC = 0) 
 
 #Версия приложения
-VERSION = "1.3.15"
+VERSION = "1.3.16"
 
 #Исходные данные для ярлыка подключения
 DESKTOP_INFO ="""#!/usr/bin/env xdg-open

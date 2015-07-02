@@ -3,7 +3,7 @@
 
 from ctor import *
 from gi.repository import Gtk, Gdk, GdkPixbuf
-import random, sys, webbrowser
+import random, sys
 from GLOBAL import *
 
 
@@ -40,7 +40,8 @@ class Gui:
                           'VMWARE' : self.builder.get_object("liststore_VMWARE"),
                           'CITRIX' : self.builder.get_object("liststore_CITRIX"),
                           'XDMCP' : self.builder.get_object("liststore_XDMCP"),
-                          'NX' : self.builder.get_object("liststore_NX")}
+                          'NX' : self.builder.get_object("liststore_NX"),
+                          'WWW' : self.builder.get_object("liststore_WWW")}
 
         self.liststore_connect = Gtk.ListStore(str, str, str, str)
         self.getSavesFromDb()#запись из файла в ListStore
@@ -52,6 +53,7 @@ class Gui:
         self.treeview.set_model(self.sortedFiltered)
         self.getServersFromDb()
         self.citrixEditClick = False
+        self.webEditClick = False
 
     def onDeleteWindow(self, *args):
         """Закрытие программы"""
@@ -59,7 +61,7 @@ class Gui:
     
     def onViewAbout(self, *args):
         """Создает диалоговое окно 'О программе'"""
-        about = Gtk.AboutDialog(title="О программе Connector", parent=self.window)
+        about = Gtk.AboutDialog(title = "О программе Connector", parent = self.window)
         about.set_program_name("Connector")
         comments = """Программа-фронтэнд для удаленного администрирования 
                       компьютеров с различными операционными системами. 
@@ -665,34 +667,53 @@ class Gui:
         server = entry.get_text()
         protocol = entry.get_name()
         parameters = self.applyPreferences(protocol)
-        name = self.pref_builder.get_object("entry_" + self.changeProgram(protocol) + "_name" )
+        name = self.pref_builder.get_object("entry_" + self.changeProgram(protocol) + "_name" ).get_text()
         parameters.insert(0, server)
         parameters.insert(0, protocol) #протокол подключения также заносится в файл        
         if self.editClick:#если нажата кнопка Изменить, то пересохранить
-            fileName = self.resaveFileCtor(name.get_text(), protocol, server)
+            fileName = self.resaveFileCtor(name, protocol, server)
         else: 
-            fileName = self.saveFileCtor(name.get_text(), protocol, server)
+            fileName = self.saveFileCtor(name, protocol, server)
         properties.saveInFile(fileName, parameters)
         self.getSavesFromDb()#добавление в листсторе
         self.pref_window.destroy()
         self.editClick = False
-        viewStatus(self.statusbar, "Сохранено...")
+        self.changePage()
+        viewStatus(self.statusbar, "Подключение \"" + name + "\" сохранено...")
 
     def onCitrixSave(self, entry):
         """Сохранение имени сервера на основе Citrix для дальнейшего подключения с ними"""
         server = entry.get_text()
-        name = self.builder.get_object("entry_CITRIX_name" )
+        name = self.builder.get_object("entry_CITRIX_name").get_text()
         parameters = []
         parameters.append('CITRIX')
         parameters.append(server)
         if self.citrixEditClick:
-            fileName = self.resaveFileCtor(name.get_text(), 'CITRIX', server)
+            fileName = self.resaveFileCtor(name, 'CITRIX', server)
         else:
-            fileName = self.saveFileCtor(name.get_text(), 'CITRIX', server)
+            fileName = self.saveFileCtor(name, 'CITRIX', server)
         properties.saveInFile(fileName, parameters)
         self.getSavesFromDb()
         self.citrixEditClick = False 
-        viewStatus(self.statusbar, "Сохранено...")
+        self.changePage()
+        viewStatus(self.statusbar, "Подключение \"" + name + "\" сохранено...")
+
+    def onWebSave(self, entry):
+        """Сохранение cсылки для дальнейшего подключения к ней"""
+        server = entry.get_text()
+        name = self.builder.get_object("entry_WWW_name").get_text()
+        parameters = []
+        parameters.append('WWW')
+        parameters.append(server)
+        if self.webEditClick:
+            fileName = self.resaveFileCtor(name, 'WWW', server)
+        else:
+            fileName = self.saveFileCtor(name, 'WWW', server)
+        properties.saveInFile(fileName, parameters)
+        self.getSavesFromDb()
+        self.webEditClick = False 
+        self.changePage()
+        viewStatus(self.statusbar, "Подключение \"" + name + "\" сохранено...")
 
     def onCitrixEdit(self, name, server, edit = True):
         """Функция изменения Citrix-подключения"""
@@ -705,6 +726,18 @@ class Gui:
         entry_name = self.builder.get_object("entry_CITRIX_name")
         entry_name.set_text(name)
         self.citrixEditClick = edit 
+
+    def onWebEdit(self, name, server, edit = True):
+        """Функция изменения Citrix-подключения"""
+        main_note = self.builder.get_object("main_note")
+        main_note.set_current_page(0)
+        conn_note = self.builder.get_object("list_connect")
+        conn_note.set_current_page(8)       
+        entry_serv = self.builder.get_object("entry_serv_WWW")
+        entry_serv.set_text(server)       
+        entry_name = self.builder.get_object("entry_WWW_name")
+        entry_name.set_text(name)
+        self.webEditClick = edit 
 
     def correctProgramm(self, parameters):
         """Функция проверки корректоности параметров для запускаемой программы"""
@@ -753,6 +786,8 @@ class Gui:
                 protocol = parameters.pop(0)  #извлекаем протокол из файла коннекта
                 if protocol == 'CITRIX':
                     self.onCitrixEdit(nameConnect, parameters[0])
+                if protocol == 'WWW':
+                    self.onWebEdit(nameConnect, parameters[0])
                 else:
                     self.editClick = True
                     analogEntry = self.AnalogEntry(protocol, parameters)
@@ -775,6 +810,8 @@ class Gui:
                 protocol = parameters.pop(0)  #извлекаем протокол из файла коннекта
                 if protocol == 'CITRIX':
                     self.onCitrixEdit(nameConnect, parameters[0], False)
+                if protocol == 'WWW':
+                    self.onWebEdit(nameConnect, parameters[0], False)
                 else:
                     analogEntry = self.AnalogEntry(protocol, parameters)
                     self.onButtonPref(analogEntry, nameConnect)
@@ -884,7 +921,12 @@ class Gui:
         button.set_sensitive(True)
 
     def onWiki(self, *args):
+        """Открытие wiki в Интернете"""
         webbrowser.open ('https://github.com/ekorneechev/Connector/wiki', new = 2)
+    
+    def changePage(self, index = 1):
+        note = self.builder.get_object("main_note")
+        note.set_current_page(index)    
 
 def f_main():
     createFolder()
