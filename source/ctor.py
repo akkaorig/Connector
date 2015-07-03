@@ -253,7 +253,7 @@ def definition(protocol):
         connect = Vmware()
     elif protocol == 'CITRIX':
         connect = Citrix()
-    elif protocol == 'WWW':
+    elif protocol == 'WEB':
         connect = Web()
     return connect  
 
