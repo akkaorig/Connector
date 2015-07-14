@@ -319,7 +319,6 @@ class Gui:
             self.RDP_gdomain.set_text(args[10])
             self.RDP_gpasswd.set_text(args[11])
             if args[12]: self.RDP_admin.set_active(True)
-            else: self.RDP_admin.set_active(False)
             if args[13]: self.RDP_cards.set_active(True)
 
 
