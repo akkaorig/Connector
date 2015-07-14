@@ -148,6 +148,7 @@ class XFreeRdp:
                 command = "GATEPWD='" + args[11] + "' && " + command 
                 command += ' /gp:$GATEPWD'
             if args[12]: command += ' /admin'
+            if args[13]: command += ' /smartcard'
             command += ' /cert-ignore &' #для игнора ввода Y/N при запросе сертификата
             os.system(command)
 
