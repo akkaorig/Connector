@@ -117,7 +117,6 @@ class VncViewer:
             command += ' &'          
             os.system(command)
 
-
 class RdpRemmina(Remmina):
     """Класс для настройки RDP-соединения через Remmina"""
     def __init__(self):
