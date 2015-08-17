@@ -70,17 +70,17 @@ class Remmina:
                 self.cfg['exec'] = args[6]
             if protocol == 'SSH':
                 #[user, SSH_auth, keyfile, charset, _exec] 
-                self.cfg['SSH_username'] = args[1]
-                self.cfg['SSH_auth'] = args[2]
-                self.cfg['SSH_privatekey'] = args[3]
-                self.cfg['SSH_charset'] = args[4]
+                self.cfg['username'] = self.cfg['ssh_username'] = args[1]
+                self.cfg['ssh_auth'] = args[2]
+                self.cfg['ssh_privatekey'] = args[3]
+                self.cfg['ssh_charset'] = args[4]
                 self.cfg['exec'] = args[5]
             if protocol == 'SFTP':
                 #[user, SSH_auth, keyfile, charset, execpath]
-                self.cfg['SSH_username'] = args[1]
-                self.cfg['SSH_auth'] = args[2]
-                self.cfg['SSH_privatekey'] = args[3]
-                self.cfg['SSH_charset'] = args[4]
+                self.cfg['username'] = self.cfg['ssh_username'] = args[1]
+                self.cfg['ssh_auth'] = args[2]
+                self.cfg['ssh_privatekey'] = args[3]
+                self.cfg['ssh_charset'] = args[4]
                 self.cfg['execpath'] = args[5]
         else:
             self.cfg['server'] = args
@@ -178,8 +178,8 @@ class XdmcpRemmina(Remmina):
 class SftpRemmina(Remmina):
     """Класс для настройки SFTP-соединения через Remmina"""
     def __init__(self):
-        self.cfg = dict(name='SFTP-connection: ', protocol='SFTP', SSH_enabled=1, SSH_auth=0, 
-                        SSH_charset='UTF-8', SSH_privatekey='', SSH_username='',
+        self.cfg = dict(name='SFTP-connection: ', protocol='SFTP', ssh_enabled=1, ssh_auth=0, 
+                        ssh_charset='UTF-8', ssh_privatekey='', username='', ssh_username='',
                         group='', password='', execpath='/', server='', window_maximize=0, 
                         window_height=600, window_width=800, ftp_vpanedpos=360, viewmode=0)
         self.f_name = '.tmp_SFTP.remmina'
@@ -187,8 +187,8 @@ class SftpRemmina(Remmina):
 class SshRemmina(Remmina):
     """Класс для настройки SSH-соединения через Remmina"""
     def __init__(self):
-        self.cfg = dict(name='SSH-connection: ', protocol='SSH', SSH_auth=0, SSH_charset='UTF-8', 
-                        SSH_privatekey='', group='', password='', SSH_username='', SSH_enabled=1,
+        self.cfg = dict(name='SSH-connection: ', protocol='SSH', ssh_auth=0, ssh_charset='UTF-8', 
+                        ssh_privatekey='', group='', password='', username='', ssh_username='', ssh_enabled=1,
                         server='', window_maximize=0, window_width=500, window_height=500, viewmode=0)
         self.cfg['exec'] = ''
         self.f_name = '.tmp_SSH.remmina'
