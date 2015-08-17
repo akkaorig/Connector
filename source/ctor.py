@@ -13,7 +13,7 @@ def f_write(f_name, cfg):
     f.close()
 
 def createFolder():
-    """Создание в домашней папке пользователя дитректории для работы программы"""
+    """Создание в домашней папке пользователя директории для работы программы"""
     if not os.path.exists(WORKFOLDER):
         os.mkdir(WORKFOLDER)
 
@@ -25,8 +25,8 @@ class Remmina:
         """Создание файла конфигурации для соединения"""
         if type(args) == list:
             protocol = self.cfg['protocol']
-            self.cfg['server'] = args[0]
-            self.cfg['name'] += args[0]
+            self.cfg['server'] = args[1]
+            self.cfg['name'] += args[1]
             if protocol == 'RDP':
                 #[user, domain, color, quality, resolution, viewmode, folder, printer, clipboard, sound]
                 self.cfg['username'] = args[1]                              
@@ -46,7 +46,7 @@ class Remmina:
                 self.cfg['quality'] = args[2]
                 self.cfg['resolution'] = args[3]
                 self.cfg['viewmode'] = args[4]
-                self.cfg['NX_privatekey'] = args[5]
+                self.cfg['nx_privatekey'] = args[5]
                 self.cfg['disableencryption'] = args[6]
                 self.cfg['disableclipboard'] = args[7]
                 self.cfg['exec'] = args[8] 
@@ -70,21 +70,23 @@ class Remmina:
                 self.cfg['exec'] = args[6]
             if protocol == 'SSH':
                 #[user, SSH_auth, keyfile, charset, _exec] 
-                self.cfg['username'] = self.cfg['ssh_username'] = args[1]
+                self.cfg['ssh_username'] = args[1]
                 self.cfg['ssh_auth'] = args[2]
                 self.cfg['ssh_privatekey'] = args[3]
                 self.cfg['ssh_charset'] = args[4]
                 self.cfg['exec'] = args[5]
             if protocol == 'SFTP':
                 #[user, SSH_auth, keyfile, charset, execpath]
-                self.cfg['username'] = self.cfg['ssh_username'] = args[1]
+                self.cfg['ssh_username'] = args[1]
                 self.cfg['ssh_auth'] = args[2]
                 self.cfg['ssh_privatekey'] = args[3]
                 self.cfg['ssh_charset'] = args[4]
                 self.cfg['execpath'] = args[5]
         else:
-            self.cfg['server'] = args
-            self.cfg['name'] += args
+            server, login = properties.searchSshUser(args)
+            if login: self.cfg['ssh_username'] = login
+            self.cfg['server'] = server
+            self.cfg['name'] += server
         f_write(self.f_name, self.cfg)        
 
     def start(self, parameters):
