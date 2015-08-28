@@ -25,8 +25,8 @@ class Remmina:
         """Создание файла конфигурации для соединения"""
         if type(args) == list:
             protocol = self.cfg['protocol']
-            self.cfg['server'] = args[1]
-            self.cfg['name'] += args[1]
+            self.cfg['server'] = args[0]
+            self.cfg['name'] += args[0]
             if protocol == 'RDP':
                 #[user, domain, color, quality, resolution, viewmode, folder, printer, clipboard, sound]
                 self.cfg['username'] = args[1]                              
