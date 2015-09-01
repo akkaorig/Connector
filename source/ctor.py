@@ -133,7 +133,7 @@ class XFreeRdp:
     def start(self, args):
         params = ' -sec-nla +auto-reconnect /cert-ignore &'
         if type(args) == str:
-            os.system('xfreerdp /workarea /v:' + args + params)
+            os.system('xfreerdp /f /v:' + args + params)
         else:
             command = 'xfreerdp /v:' + args[0]
             if args[1]: command += ' /u:' + args[1]
@@ -155,6 +155,17 @@ class XFreeRdp:
             if args[15]: command += ' /sound:sys:alsa'
             if args[16]: command += ' /microphone:sys:alsa'
             if args[17]: command += ' /multimon'
+            if args[18]: command += ' +compression'
+            if args[19]: command += ' /compression-level:' + args[19]
+            if args[20]: command += ' +fonts'
+            if args[21]: command += ' +aero'
+            if args[22]: command += ' +window-drag'
+            if args[23]: command += ' +menu-anims'    
+            if args[24]: command += ' -themes'
+            if args[25]: command += ' -wallpaper'
+            if args[26]: command += ' /nsc'
+            if args[27]: command += ' /jpeg'
+            if args[28]: command += ' /jpeg-quality:' + str(args[28])
             command += params
             os.system(command)
 
