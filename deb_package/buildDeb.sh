@@ -10,3 +10,4 @@ mv deb_package/connector/usr/share/connector/data/connector.desktop deb_package/
 cd deb_package/
 chmod 755 connector/usr/bin/connector
 fakeroot dpkg-deb --build connector
+rm -r connector/usr
