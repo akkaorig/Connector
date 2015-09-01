@@ -133,7 +133,7 @@ class XFreeRdp:
     def start(self, args):
         params = ' -sec-nla +auto-reconnect /cert-ignore &'
         if type(args) == str:
-            os.system('xfreerdp /workarea /v:' + args + params)
+            os.system('xfreerdp /f /v:' + args + params)
         else:
             command = 'xfreerdp /v:' + args[0]
             if args[1]: command += ' /u:' + args[1]
