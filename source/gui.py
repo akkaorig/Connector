@@ -54,6 +54,10 @@ class Gui:
         self.getServersFromDb()
         self.citrixEditClick = False
         self.webEditClick = False
+        try: default_tab = properties.loadFromFile('default.conf')['TAB']
+        except KeyError: default_tab = '0'
+        self.conn_note = self.builder.get_object("list_connect")
+        self.conn_note.set_current_page(int(default_tab))
 
     def onDeleteWindow(self, *args):
         """Закрытие программы"""
@@ -789,8 +793,7 @@ class Gui:
             index_tab = 8 
         main_note = self.builder.get_object("main_note")
         main_note.set_current_page(0)
-        conn_note = self.builder.get_object("list_connect")
-        conn_note.set_current_page(index_tab)       
+        self.conn_note.set_current_page(index_tab)       
         entry_serv = self.builder.get_object("entry_serv_" + protocol)               
         entry_name = self.builder.get_object("entry_" + protocol + "_name")
         entry_serv.set_text(server)
