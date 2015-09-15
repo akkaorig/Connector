@@ -920,7 +920,9 @@ class Gui:
             Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
         dialog.set_current_folder(HOMEFOLDER)
-        dialog.set_current_name('Connect')
+        table, indexRow = treeView.get_selection().get_selected()
+        fileCtor = table[indexRow][3]
+        dialog.set_current_name(table[indexRow][0])
         dialog.set_do_overwrite_confirmation(True) #запрос на перезапись одноименного файла
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
@@ -929,8 +931,6 @@ class Gui:
             filename = name + ".desktop"
             with open(filename,"w") as label:
                 label.write(DESKTOP_INFO)
-            table, indexRow = treeView.get_selection().get_selected()
-            fileCtor = table[indexRow][3]
             f = open(filename,"a")
             f.write("Exec=" + EXEC + fileCtor + "\n")
             f.write("Name=" + os.path.basename(name))
