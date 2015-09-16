@@ -7,3 +7,4 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 * [Веб-сайт проекта](http://ekorneechev.github.io/Connector)
 * [Wiki-страничка](https://github.com/ekorneechev/Connector/wiki) [(скачать руководство пользователя)] (https://github.com/ekorneechev/Connector/raw/gh-pages/wiki/Connector_wiki.pdf)
 * [Связь с разработчиком](mailto:ekorneechev@gmail.com)
+* [Поддержите проект](http://ekorneechev.github.io/Connector/donate.html)
