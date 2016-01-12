@@ -150,7 +150,7 @@ class XFreeRdp:
                 command = "GATEPWD='" + args[11] + "' && " + command 
                 command += ' /gp:$GATEPWD'
             if args[12]: command += ' /admin'
-            if args[13]: command += ' /smartcard:""'
+            if args[13]: command += ' /smartcard'
             if args[14]: command += ' /printer'
             if args[15]: command += ' /sound:sys:alsa'
             if args[16]: command += ' /microphone:sys:alsa'
@@ -166,7 +166,7 @@ class XFreeRdp:
             if args[26]: command += ' /nsc'
             if args[27]: command += ' /jpeg'
             if args[28]: command += ' /jpeg-quality:' + str(args[28])
-            if args[29]: command += ' /drive:Storage,/run/media/$USER'
+            if args[29]: command += ' /drive:Storage,/media/$USER'
             if args[30]: command += ' /p:$(zenity --entry --title="Аутентификация (with NLA)" --text="Введите пароль для пользователя '+ args[1] + ':" --hide-text)'
             else: command += ' -sec-nla'
             if args[31]: command += ' /workarea'

@@ -1985,7 +1985,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="check_RDP1_usb">
-                <property name="label" translatable="yes">USB Storage</property>
+                <property name="label" translatable="yes">Внешние накопители</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
