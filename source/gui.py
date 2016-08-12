@@ -776,6 +776,7 @@ class Gui:
         self.getSavesFromDb()#добавление в листсторе
         self.pref_window.destroy()
         self.editClick = False
+        self.prefClick = False
         self.changePage()
         viewStatus(self.statusbar, "Подключение \"" + name + "\" сохранено...")
 
