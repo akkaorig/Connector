@@ -15,6 +15,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 `sudo apt-get install dpkg debconf debhelper lintian`
 
 * Выполнение скрипта сборки DEB-пакета:
+
 `git clone https://github.com/ekorneechev/Connector`
 `cd Connector/deb_package && chmod 755 buildDeb.sh && ./buildDeb.sh`
 
