@@ -17,6 +17,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 * Выполнение скрипта сборки DEB-пакета:
 
 `git clone https://github.com/ekorneechev/Connector`
+
 `cd Connector/deb_package && chmod 755 buildDeb.sh && ./buildDeb.sh`
 
 * Установка пакета:
