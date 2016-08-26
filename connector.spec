@@ -1,5 +1,5 @@
 Name: connector
-Version: 1.3.23
+Version: 1.4.0-beta
 Release: alt1
 
 Summary: Remote desktop chooser
@@ -11,7 +11,7 @@ Source0: %name-%version.tar.gz
 Packager: Korneechev Evgeniy <ekorneechev@altlinux.org>
 
 BuildArch: noarch
-Requires: python3 python3-module-pygobject3 libgtk+3 libgtk+3-gir
+Requires: python3 python3-module-pygobject3 libgtk+3 libgtk+3-gir mate-session
 Requires: xfreerdp remmina remmina-plugins tigervnc
 
 %define basedir %_datadir/%name
@@ -38,6 +38,10 @@ install -p *.py %buildroot%basedir/
 %basedir/*.py
 
 %changelog
+* Fri Aug 26 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0-beta-alt1
+- Added mode 'KIOSK'
+- Added shutdown and logout
+
 * Fri Aug 12 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.3.23-alt1
 - Fixed a bug - sometimes doesn't work quick connection
 
