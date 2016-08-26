@@ -997,7 +997,13 @@ class Gui:
     
     def changePage(self, index = 1):
         note = self.builder.get_object("main_note")
-        note.set_current_page(index)    
+        note.set_current_page(index)
+
+    def onLogout(self, *args):
+        os.system("mate-session-save --logout-dialog")
+
+    def onShutdown(self, *args):
+        os.system("mate-session-save --shutdown-dialog")
 
 def f_main():
     createFolder()

@@ -42,6 +42,16 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">XDMCP.png</property>
   </object>
+  <object class="GtkImage" id="logout_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-orientation-portrait</property>
+  </object>
+  <object class="GtkImage" id="shutdown_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-disconnect</property>
+  </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -392,6 +402,34 @@
                     </child>
                     <child>
                       <object class="GtkSeparatorMenuItem" id="menu_file_separator">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="menu_file_logout">
+                        <property name="label" translatable="yes">Завершение сеанса</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Открыть диалог завершения сеанса</property>
+                        <property name="image">logout_image</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="onLogout" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="menu_file_shutdown">
+                        <property name="label" translatable="yes">Выключение ПК</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Открыть диалог выключения компьютера</property>
+                        <property name="image">shutdown_image</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="onShutdown" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                       </object>
