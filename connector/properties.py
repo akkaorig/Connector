@@ -158,7 +158,7 @@ class Properties(Gtk.Window):
             autostart.close()
             os.chmod(autostartFile, 0o766)
             dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Программа настроена на режим "Киоск"')
-            dialog.format_secondary_text("При следующем входе в сеанс пользователя запуститься только Connector.\nCtrl+Alt+F1 - откроется рабочий стол")
+            dialog.format_secondary_text("При следующем входе в сеанс пользователя запуститься только Connector.\nCtrl+Alt+F1 - вернуться на 'Рабочий стол'")
             response = dialog.run()
             dialog.destroy()
             self.defaultConf['KIOSK'] = 1
@@ -168,6 +168,7 @@ class Properties(Gtk.Window):
             os.remove(HOMEFOLDER + "/.config/autostart/Ctor_kiosk.desktop")
             os.remove(HOMEFOLDER + "/.xsession")
         except: pass
+        gui.viewStatus(self.statusbar, "Режим киоска отключен...")
 
 if __name__ == '__main__':
     pass
