@@ -1,6 +1,6 @@
 Name: connector
-Version: 1.4.0-beta
-Release: alt1
+Version: 1.4.0_beta
+Release: alt2
 
 Summary: Remote desktop chooser
 License: GPL
@@ -11,7 +11,7 @@ Source0: %name-%version.tar.gz
 Packager: Korneechev Evgeniy <ekorneechev@altlinux.org>
 
 BuildArch: noarch
-Requires: python3 python3-module-pygobject3 libgtk+3 libgtk+3-gir mate-session
+Requires: python3 python3-module-pygobject3 libgtk+3 libgtk+3-gir mate-session which zenity
 Requires: xfreerdp remmina remmina-plugins tigervnc
 
 %define basedir %_datadir/%name
@@ -38,9 +38,19 @@ install -p *.py %buildroot%basedir/
 %basedir/*.py
 
 %changelog
-* Fri Aug 26 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0-beta-alt1
+* Thu Sep 08 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt2
+- Update requires - added zenity & which
+- Added tooltips for kiosk
+
+* Fri Aug 26 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt1
 - Added mode 'KIOSK'
 - Added shutdown and logout
+
+* Wed Aug 24 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.3.23-alt3
+- Update requires - added remmina-plugins
+
+* Fri Aug 22 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.3.23-alt2
+- Update requires - added xfreerdp
 
 * Fri Aug 12 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.3.23-alt1
 - Fixed a bug - sometimes doesn't work quick connection
