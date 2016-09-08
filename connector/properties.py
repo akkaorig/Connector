@@ -3,6 +3,8 @@
 
 """Модуль управления параметрами Коннектора"""
 import pickle, gui
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from GLOBAL import *
 
@@ -158,7 +160,9 @@ class Properties(Gtk.Window):
             autostart.close()
             os.chmod(autostartFile, 0o766)
             dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Программа настроена на режим "Киоск"')
-            dialog.format_secondary_text("При следующем входе в сеанс пользователя запуститься только Connector.\nCtrl+Alt+F1 - вернуться на 'Рабочий стол'")
+            dialog.format_secondary_text("""При следующем входе в сеанс пользователя запуститься только Connector.
+Ctrl+Alt+F1 - вернуться на "Рабочий стол"
+*Пункты меню завершения сеанса и работы работают в авторежиме""")
             response = dialog.run()
             dialog.destroy()
             self.defaultConf['KIOSK'] = 1
@@ -168,7 +172,10 @@ class Properties(Gtk.Window):
             os.remove(HOMEFOLDER + "/.config/autostart/Ctor_kiosk.desktop")
             os.remove(HOMEFOLDER + "/.xsession")
         except: pass
-        gui.viewStatus(self.statusbar, "Режим киоска отключен...")
+        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Режим киоска отключен')
+        dialog.format_secondary_text("Изменения вступят в силу при следующем входе в сеанс пользователя")
+        response = dialog.run()
+        dialog.destroy()
 
 if __name__ == '__main__':
     pass
