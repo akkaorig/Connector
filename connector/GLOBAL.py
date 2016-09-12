@@ -10,7 +10,7 @@ HOMEFOLDER = os.getenv('HOME')
 WORKFOLDER = HOMEFOLDER + '/.connector/'
 
 #Установки по умолчанию для параметров программы (какие приложения использовать)
-DEFAULT = dict(RDP = 1, VNC = 0, TAB = '0', KIOSK = '0') 
+DEFAULT = dict(RDP = 1, VNC = 1, TAB = '0', KIOSK = 0) 
 
 #Версия приложения
 VERSION = "1.4.0_beta"
