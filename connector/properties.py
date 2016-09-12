@@ -81,8 +81,12 @@ class Properties(Gtk.Window):
             changeRdpFree.set_active(True)
         if self.defaultConf['VNC']:
             changeVncView.set_active(True)
-        if self.defaultConf['KIOSK']:
-            self.check_kiosk.set_active(True)
+        try:
+            if self.defaultConf['KIOSK']:
+                self.check_kiosk.set_active(True)
+        except KeyError:#если нет такого ключа (например после обновления)
+            self.check_kiosk.set_active(False)
+            saveInFile('default.conf', DEFAULT)  
         try: self.combo_tabs.set_active_id(self.defaultConf['TAB'])
         except KeyError: self.combo_tabs.set_active_id('0')
         self.add(box)        
