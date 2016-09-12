@@ -1,6 +1,6 @@
 Name: connector
 Version: 1.4.0_beta
-Release: alt2
+Release: alt3
 
 Summary: Remote desktop chooser
 License: GPL
@@ -38,6 +38,9 @@ install -p *.py %buildroot%basedir/
 %basedir/*.py
 
 %changelog
+* Mon Sep 12 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt3
+- Fixed any bugs with kiosk mode
+
 * Thu Sep 08 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt2
 - Update requires - added zenity & which
 - Added tooltips for kiosk
