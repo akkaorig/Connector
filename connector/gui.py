@@ -8,7 +8,6 @@ import random, sys
 from ctor import *
 from GLOBAL import *
 
-
 def viewStatus(bar, message):
     """Функция отображения происходящих действий в строке состояния"""
     message = message[:65] + '...' if len(message) > 65 else message #для обреза длинных сообщений
@@ -1006,6 +1005,14 @@ class Gui:
 
     def onShutdown(self, *args):
         os.system("mate-session-save --shutdown-dialog")
+
+    def onPopupClipboard(self, treeView):
+        """Копирование имени конфигурационного файла в буфер обмена"""
+        table, indexRow = treeView.get_selection().get_selected()
+        filename = table[indexRow][3]
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+        clipboard.set_text(filename, -1)
+        viewStatus(self.statusbar, filename + " - скопировано в буфер обмена")
 
 def f_main():
     createFolder()

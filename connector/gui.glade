@@ -62,6 +62,21 @@
     <property name="can_focus">False</property>
     <property name="icon_name">emblem-shared</property>
   </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-revert</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">WEB.png</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-paste</property>
+  </object>
   <object class="GtkMenu" id="menu_popup">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -97,6 +112,7 @@
         <property name="label">gtk-copy</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Копировать параметры в новое подключение</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
         <signal name="activate" handler="onPopupCopy" object="treeview_connections" swapped="no"/>
@@ -124,16 +140,23 @@
         <signal name="activate" handler="onPopupRemove" object="treeview_connections" swapped="no"/>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">document-revert</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">WEB.png</property>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separatormenuitem4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="menu_popup_clipboard">
+        <property name="label" translatable="yes">Копировать в буфер</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Копировать имя файла с параметрами в буфер обмена</property>
+        <property name="image">image5</property>
+        <property name="use_stock">False</property>
+        <signal name="activate" handler="onPopupClipboard" object="treeview_connections" swapped="no"/>
+      </object>
+    </child>
   </object>
   <object class="GtkListStore" id="liststore_CITRIX">
     <columns>
@@ -813,6 +836,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">RDP</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="tab_fill">False</property>
@@ -933,6 +957,7 @@
                         <property name="label" translatable="yes">NX</property>
                         <property name="ellipsize">start</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">1</property>
@@ -1057,6 +1082,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">VNC</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">2</property>
@@ -1177,6 +1203,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">XDMCP</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">3</property>
@@ -1297,6 +1324,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">VMware</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">4</property>
@@ -1444,6 +1472,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Citrix</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">5</property>
@@ -1564,6 +1593,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">SSH</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">6</property>
@@ -1684,6 +1714,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">SFTP</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">7</property>
@@ -1813,6 +1844,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">WEB</property>
                         <property name="width_chars">8</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="position">8</property>

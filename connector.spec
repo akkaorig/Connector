@@ -1,6 +1,7 @@
 Name: connector
+
 Version: 1.4.0_beta
-Release: alt4
+Release: alt5
 
 Summary: Remote desktop chooser
 License: GPL
@@ -11,6 +12,7 @@ Source0: %name-%version.tar.gz
 Packager: Korneechev Evgeniy <ekorneechev@altlinux.org>
 
 BuildArch: noarch
+
 Requires: python3 python3-module-pygobject3 libgtk+3 libgtk+3-gir mate-session which zenity
 Requires: xfreerdp remmina remmina-plugins tigervnc
 
@@ -38,6 +40,9 @@ install -p *.py %buildroot%basedir/
 %basedir/*.py
 
 %changelog
+* Tue Sep 13 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt5
+- Added function - copy ctor-file's name to clipboard
+
 * Tue Sep 13 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt4
 - Fix MessageDialogs for kiosk mode
 
