@@ -86,7 +86,7 @@ class Properties(Gtk.Window):
                 self.check_kiosk.set_active(True)
         except KeyError:#если нет такого ключа (например после обновления)
             self.check_kiosk.set_active(False)
-            saveInFile('default.conf', DEFAULT)  
+            saveInFile('default.conf', DEFAULT)
         try: self.combo_tabs.set_active_id(self.defaultConf['TAB'])
         except KeyError: self.combo_tabs.set_active_id('0')
         self.add(box)        
@@ -163,23 +163,29 @@ class Properties(Gtk.Window):
             autostart.write(KIOSK_X)
             autostart.close()
             os.chmod(autostartFile, 0o766)
-            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Программа настроена на режим "Киоск"')
-            dialog.format_secondary_text("""При следующем входе в сеанс пользователя запуститься только Connector.
-Ctrl+Alt+F1 - вернуться на "Рабочий стол"
-*Пункты меню завершения сеанса и работы работают в авторежиме""")
-            response = dialog.run()
-            dialog.destroy()
             self.defaultConf['KIOSK'] = 1
+        self.onKiosk(self.check_kiosk)
 
     def disableKiosk (self):
         try:
             os.remove(HOMEFOLDER + "/.config/autostart/Ctor_kiosk.desktop")
             os.remove(HOMEFOLDER + "/.xsession")
         except: pass
-        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Режим киоска отключен')
-        dialog.format_secondary_text("Изменения вступят в силу при следующем входе в сеанс пользователя")
-        response = dialog.run()
-        dialog.destroy()
+        self.onKiosk(self.check_kiosk)
+
+    def onKiosk (self, widget):
+        if widget.get_active():
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Программа настроена на режим "Киоск"')
+            dialog.format_secondary_text("""При следующем входе в сеанс пользователя запуститься только Connector.
+Ctrl+Alt+F1 - вернуться на "Рабочий стол"
+*Пункты меню завершения сеанса и работы работают в авторежиме""")
+            response = dialog.run()
+            dialog.destroy()
+        else:
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, 'Режим киоска отключен')
+            dialog.format_secondary_text("""При сохранении настроек изменения вступят в силу при следующем входе в сеанс пользователя""")
+            response = dialog.run()
+            dialog.destroy()
 
 if __name__ == '__main__':
     pass
