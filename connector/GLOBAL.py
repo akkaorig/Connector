@@ -10,7 +10,7 @@ HOMEFOLDER = os.getenv('HOME')
 WORKFOLDER = HOMEFOLDER + '/.connector/'
 
 #Установки по умолчанию для параметров программы (какие приложения использовать)
-DEFAULT = dict(RDP = 1, VNC = 1, TAB = '0', KIOSK = 0) 
+DEFAULT = dict(RDP = 1, VNC = 1, TAB = '0', KIOSK = 0, KIOSK_FILE = "")
 
 #Версия приложения
 VERSION = "1.4.0_beta"
@@ -25,14 +25,7 @@ Icon=/usr/share/connector/data/emblem.png
 """
 
 #Режим киоска
-KIOSK_MARCO = """marco &
-while true
-do
-connector
-done
-"""
-
-KIOSK_OPENBOX = """openbox &
+KIOSK= """ &
 while true
 do
 connector
@@ -49,6 +42,13 @@ Name[ru_RU]=Ctor_kiosk
 Exec=startx
 Name=Ctor_kiosk
 Icon=start
+"""
+
+KIOSK_CTOR=""" &
+while true
+do
+echo > /dev/null
+done
 """
 
 

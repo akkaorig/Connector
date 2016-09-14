@@ -459,6 +459,7 @@
               <object class="GtkSeparator" id="separator5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="opacity">0</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
               </object>
@@ -469,15 +470,94 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="check_kiosk">
-                <property name="label" translatable="yes"> Запускать программу в режиме "Киоска"</property>
+              <object class="GtkBox" id="box_kiosk">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="draw_indicator">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkRadioButton" id="radio_kiosk_off">
+                    <property name="label" translatable="yes"> Режим киоска отключен</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="active">True</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="offKioskEntry" object="entry_kiosk_ctor" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="radio_kiosk_all">
+                    <property name="label" translatable="yes"> Запускать программу в режиме Киоска</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="draw_indicator">True</property>
+                    <property name="group">radio_kiosk_off</property>
+                    <signal name="toggled" handler="offKioskEntry" object="entry_kiosk_ctor" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box_kiosk2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkRadioButton" id="radio_kiosk_ctor">
+                        <property name="label" translatable="yes"> Запускать отдельное подключение
+ в режиме киоска:</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">radio_kiosk_off</property>
+                        <signal name="toggled" handler="onKioskEntry" object="entry_kiosk_ctor" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="entry_kiosk_ctor">
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_markup" translatable="yes">Введите имя файла сохраненного подключения.
+&lt;i&gt;Скопировать его можно, щелкнув правой кнопкой
+мыши на подключении и выбрав "Копировать в буфер"&lt;/i&gt;</property>
+                        <property name="valign">center</property>
+                        <property name="margin_left">5</property>
+                        <property name="placeholder_text" translatable="yes">Введите имя файла...</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>

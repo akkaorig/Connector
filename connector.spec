@@ -1,7 +1,7 @@
 Name: connector
 
 Version: 1.4.0_beta
-Release: alt5
+Release: alt6
 
 Summary: Remote desktop chooser
 License: GPL
@@ -40,6 +40,9 @@ install -p *.py %buildroot%basedir/
 %basedir/*.py
 
 %changelog
+* Wed Sep 14 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt6
+- Updated mode KIOSK
+
 * Tue Sep 13 2016 Evgeniy Korneechev <ekorneechev@altlinux.org> 1.4.0_beta-alt5
 - Added function - copy ctor-file's name to clipboard
 
