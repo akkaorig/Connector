@@ -1197,7 +1197,7 @@
           <object class="GtkLabel" id="label58">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">"TigerVNC"</property>
+            <property name="label" translatable="yes">"RealVNC"</property>
           </object>
           <packing>
             <property name="expand">True</property>

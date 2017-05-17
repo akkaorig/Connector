@@ -107,14 +107,14 @@ class VncViewer:
     """Класс для настройки VNC-соединения через VncViewer"""
     def start(self, args):
         if type(args) == str:
-            properties.log.info ("TigerVNC: подключение к серверу %s", args)
+            properties.log.info ("RealVNC: подключение к серверу %s", args)
             os.system('vncviewer ' + args + STD_TO_LOG)
         else:
             command = 'vncviewer ' + args[0] + ' '
             if args[1]: command += args[1]
             if args[2]: command += args[2]
             command += STD_TO_LOG
-            properties.log.info ("TigerVNC: подключение к серверу %s", args[0])
+            properties.log.info ("RealVNC: подключение к серверу %s", args[0])
             os.system(command)
 
 class RdpRemmina(Remmina):
