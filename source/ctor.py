@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import time, properties, webbrowser
+import time, properties
 from GLOBAL import *
 
 def f_write(f_name, cfg):
@@ -12,11 +12,6 @@ def f_write(f_name, cfg):
         print(key,cfg[key], sep='=',file=f)
     f.close()
 
-def createFolder():
-    """Создание в домашней папке пользователя директории для работы программы"""
-    if not os.path.exists(WORKFOLDER):
-        os.mkdir(WORKFOLDER)
-
 class Remmina:
     """Класс, обеспечивающий подключение через remmina"""
     cfg = {}
@@ -25,8 +20,9 @@ class Remmina:
         """Создание файла конфигурации для соединения"""
         if type(args) == list:
             protocol = self.cfg['protocol']
-            self.cfg['server'] = args[0]
-            self.cfg['name'] += args[0]
+            server, login = properties.searchSshUser(args[0])
+            self.cfg['server'] = server
+            self.cfg['name'] += server
             if protocol == 'RDP':
                 #[user, domain, color, quality, resolution, viewmode, folder, printer, clipboard, sound]
                 self.cfg['username'] = args[1]                              
@@ -70,14 +66,16 @@ class Remmina:
                 self.cfg['exec'] = args[6]
             if protocol == 'SSH':
                 #[user, SSH_auth, keyfile, charset, _exec] 
-                self.cfg['ssh_username'] = args[1]
+                if login: self.cfg['ssh_username'] = login
+                else: self.cfg['ssh_username'] = args[1]
                 self.cfg['ssh_auth'] = args[2]
                 self.cfg['ssh_privatekey'] = args[3]
                 self.cfg['ssh_charset'] = args[4]
                 self.cfg['exec'] = args[5]
             if protocol == 'SFTP':
                 #[user, SSH_auth, keyfile, charset, execpath]
-                self.cfg['ssh_username'] = args[1]
+                if login: self.cfg['ssh_username'] = login
+                else: self.cfg['ssh_username'] = args[1]
                 self.cfg['ssh_auth'] = args[2]
                 self.cfg['ssh_privatekey'] = args[3]
                 self.cfg['ssh_charset'] = args[4]
@@ -92,7 +90,8 @@ class Remmina:
     def start(self, parameters):
         """Запуск remmina с необходимыми параметрами"""
         self.create_cfg_file(parameters)
-        os.system('cd $HOME && remmina -c "' + WORKFOLDER + self.f_name + '" &')
+        properties.log.info ("Remmina: подключение по протоколу %s к серверу: %s", self.cfg['protocol'], self.cfg['server'])
+        os.system('cd $HOME && remmina -c "' + WORKFOLDER + self.f_name + '"' + STD_TO_LOG)
 
 class VncRemmina(Remmina):
     """Класс для настройки VNC-соединения через Remmina"""
@@ -107,14 +106,15 @@ class VncRemmina(Remmina):
 class VncViewer:
     """Класс для настройки VNC-соединения через VncViewer"""
     def start(self, args):
-        if type(args) == str:        
-            os.system('vncviewer ' + args + ' &')
+        if type(args) == str:
+            properties.log.info ("TigerVNC: подключение к серверу %s", args)
+            os.system('vncviewer ' + args + STD_TO_LOG)
         else:
-            command = 'vncviewer ' + args[0]
-            if args[1]: command += ' ' + args[1]
-            if args[2]: command += ' ' + args[2]
-            if args[3]: command += ' ' + args[3]
-            command += ' &'          
+            command = 'vncviewer ' + args[0] + ' '
+            if args[1]: command += args[1]
+            if args[2]: command += args[2]
+            command += STD_TO_LOG
+            properties.log.info ("TigerVNC: подключение к серверу %s", args[0])
             os.system(command)
 
 class RdpRemmina(Remmina):
@@ -131,9 +131,10 @@ class RdpRemmina(Remmina):
 class XFreeRdp:
     """Класс для настройки RDP-соединения через xfreerdp"""
     def start(self, args):
-        params = ' +auto-reconnect /cert-ignore &'
+        params = ' +auto-reconnect /cert-ignore'
         if type(args) == str:
-            os.system('xfreerdp /f -sec-nla /v:' + args + params)
+            properties.log.info ("FreeRDP: подключение к серверу %s", args)
+            os.system('xfreerdp /f -sec-nla /v:' + args + params + STD_TO_LOG)
         else:
             command = 'xfreerdp /v:' + args[0]
             if args[1]: command += ' /u:' + args[1]
@@ -166,11 +167,20 @@ class XFreeRdp:
             if args[26]: command += ' /nsc'
             if args[27]: command += ' /jpeg'
             if args[28]: command += ' /jpeg-quality:' + str(args[28])
-            if args[29]: command += ' /drive:Storage,/media/$USER'
+            if args[29]: command += ' /drive:MEDIA,' + USBPATH
             if args[30]: command += ' /p:$(zenity --entry --title="Аутентификация (with NLA)" --text="Введите пароль для пользователя '+ args[1] + ':" --hide-text)'
             else: command += ' -sec-nla'
             if args[31]: command += ' /workarea'
-            command += params
+            try: #Добавлена совместимость с предыдущей версией; < 1.4.0
+                if args[32]: command += ' /span'
+            except IndexError: pass
+            try: #Добавлена совместимость с предыдущей версией; < 1.4.1
+                if args[33]: command += ' /drive:Desktop,' + DESKFOLDER
+                if args[34]: command += ' /drive:Downloads,' + DOWNFOLDER
+                if args[35]: command += ' /drive:Documents,' + DOCSFOLDER
+            except IndexError: pass
+            command += params + STD_TO_LOG
+            properties.log.info ("FreeRDP: подключение к серверу %s", args[0])
             os.system(command)
 
 class NxRemmina(Remmina):
@@ -213,16 +223,22 @@ class SshRemmina(Remmina):
 class Vmware:
     """Класс для настройки соединения к VMWare серверу"""
     def start(self, args):
-        if type(args) == str:        
-            os.system('vmware-view -q -s ' + args + ' &')
+        if vmwareCheck():
+            if type(args) == str:
+                properties.log.info ("VMware: подключение к серверу %s", args)
+                os.system('vmware-view -q -s ' + args + STD_TO_LOG)
+            else:
+                command = 'vmware-view -q -s ' + args[0]
+                if args[1]: command += ' -u ' + args[1]
+                if args[2]: command += ' -d ' + args[2]
+                if args[3]: command += ' -p ' + args[3]
+                if args[4]: command += ' --fullscreen'
+                command += STD_TO_LOG
+                properties.log.info ("VMware: подключение к серверу %s", args[0])
+                os.system(command)
         else:
-            command = 'vmware-view -q -s ' + args[0]
-            if args[1]: command += ' -u ' + args[1]
-            if args[2]: command += ' -d ' + args[2]
-            if args[3]: command += ' -p ' + args[3]
-            if args[4]: command += ' --fullscreen'
-            command += ' &'   
-            os.system(command)
+            properties.log.warning ("VMware Horizon Client не установлен!")
+            os.system("zenity --error --text='VMware Horizon Client не установлен!'")
 
 class Citrix:
     """Класс для настройки ICA-соединения к Citrix-серверу"""
@@ -230,11 +246,21 @@ class Citrix:
         if type(args) == list:
             addr = args[0]
         else: addr = args
-        os.system('/opt/Citrix/ICAClient/util/storebrowse --addstore ' + addr)
-        os.system('/opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient &')
+        if citrixCheck():
+            properties.log.info ("Citrix: подключение к серверу %s", addr)
+            os.system('/opt/Citrix/ICAClient/util/storebrowse --addstore ' + addr + STD_TO_LOG)
+            os.system('/opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient' + STD_TO_LOG)
+        else:
+            properties.log.warning ("Citrix Receiver не установлен!")
+            os.system("zenity --error --text='Citrix Receiver не установлен!'")
 
     def preferences():
-        os.system('/opt/Citrix/ICAClient/util/configmgr --icaroot /opt/Citrix/ICAClient &')
+        if citrixCheck():
+            properties.log.info ("Citrix: открытие настроек программы")
+            os.system('/opt/Citrix/ICAClient/util/configmgr --icaroot /opt/Citrix/ICAClient' + STD_TO_LOG)
+        else:
+            properties.log.warning ("Citrix Receiver не установлен!")
+            os.system("zenity --error --text='Citrix Receiver не установлен!'")
 
 class Web:
     """Класс для настройки подключения к WEB-ресурсу"""
@@ -244,7 +270,8 @@ class Web:
         else: addr = args
         if  not addr.find("://") != -1:
             addr = "http://" + addr
-        webbrowser.open (addr, new = 2)        
+        properties.log.info ("WWW: открытие web-ресурса %s", addr)
+        os.system ('python3 -m webbrowser -t "' + addr + '"' + STD_TO_LOG)
 
 def definition(protocol):
     """Функция определения протокола"""
@@ -271,34 +298,19 @@ def definition(protocol):
         connect = Citrix()
     elif protocol == 'WEB':
         connect = Web()
-    return connect  
+    return connect
 
-def __main():
-    """Функция для самотестирования модуля, просто запустите данный скрипт"""
-    while True:
-        protocol = input("Введите протокол: ").upper()    
-        if protocol == 'VNC':
-            connect = VncRemmina()
-        elif protocol == 'RDP':
-            connect = RdpRemmina()
-        elif protocol == 'NX':
-            connect = NxRemmina()
-        elif protocol == 'XDMCP':
-            connect = XdmcpRemmina()
-        elif protocol == 'SSH':
-            connect = SshRemmina()
-        elif protocol == 'SFTP':
-            connect = SftpRemmina()
-        elif protocol == 'VMWARE':
-            connect = Vmware() #demo.vm-it.com | login: Demo | pass Qwerty123
-        elif protocol == 'CITRIX':
-            connect = Citrix() #demo.CITRIXcloud.net | login: John.Smith6 | pass demo | domain CITRIXcloud
-        else:
-            print('Неизвестный протокол!')
-            continue
-        addr = input("Введите адрес сервера: ")
-        connect.start(addr)
-        time.sleep(2)
+def citrixCheck():
+    """Фунцкия проверки наличия в системе Citrix Receiver"""
+    check = int(subprocess.check_output("rpm -q ICAClient > /dev/null 2>&1; echo $?", shell=True, universal_newlines=True).strip())
+    check = not bool(check)
+    return check
+
+def vmwareCheck():
+    """Фунцкия проверки наличия в системе VMware Horizon Client (либо пакета *-userinstall)"""
+    check = int(subprocess.check_output("which vmware-view > /dev/null 2>&1; echo $?", shell=True, universal_newlines=True).strip())
+    check = not bool(check)
+    return check
 
 if __name__ == "__main__":
-    __main()
+    pass
