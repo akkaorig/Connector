@@ -3,7 +3,7 @@
 
 """Модуль управления параметрами Коннектора"""
 import pickle, gui
-import gi
+import gi, subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from GLOBAL import *

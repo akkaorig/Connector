@@ -302,15 +302,13 @@ def definition(protocol):
 
 def citrixCheck():
     """Фунцкия проверки наличия в системе Citrix Receiver"""
-    check = int(subprocess.check_output("rpm -q ICAClient > /dev/null 2>&1; echo $?", shell=True, universal_newlines=True).strip())
-    check = not bool(check)
-    return check
+    #не нужна, так как у пакет есть зависимость
+    return True
 
 def vmwareCheck():
-    """Фунцкия проверки наличия в системе VMware Horizon Client (либо пакета *-userinstall)"""
-    check = int(subprocess.check_output("which vmware-view > /dev/null 2>&1; echo $?", shell=True, universal_newlines=True).strip())
-    check = not bool(check)
-    return check
+    """Фунцкия проверки наличия в системе VMware Horizon Client"""
+    #не нужна, так как у пакет есть зависимость
+    return True
 
 if __name__ == "__main__":
     pass
