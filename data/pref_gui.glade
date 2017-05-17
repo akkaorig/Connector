@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
@@ -65,8 +65,8 @@
                     <property name="name">SFTP</property>
                     <property name="can_focus">True</property>
                     <property name="tooltip_text" translatable="yes">Поддерживается следующий формат:
- - сервер
- - сервер:порт</property>
+ - [имя@]сервер
+ - [имя@]сервер:порт</property>
                     <signal name="activate" handler="onButtonConnect" swapped="no"/>
                   </object>
                 </child>
@@ -147,7 +147,6 @@
             <property name="receives_default">False</property>
             <property name="halign">start</property>
             <property name="margin_left">10</property>
-            <property name="xalign">0</property>
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -165,7 +164,6 @@
             <property name="receives_default">False</property>
             <property name="halign">start</property>
             <property name="margin_left">10</property>
-            <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
             <property name="group">radio_SFTP_pwd</property>
           </object>
@@ -186,7 +184,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">10</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">radio_SFTP_pwd</property>
               </object>
@@ -486,8 +483,8 @@
                 <property name="name">SSH</property>
                 <property name="can_focus">True</property>
                 <property name="tooltip_text" translatable="yes">Поддерживается следующий формат:
- - сервер
- - сервер:порт</property>
+ - [имя@]сервер
+ - [имя@]сервер:порт</property>
                 <signal name="activate" handler="onButtonConnect" swapped="no"/>
               </object>
             </child>
@@ -568,7 +565,6 @@
         <property name="receives_default">False</property>
         <property name="halign">start</property>
         <property name="margin_left">10</property>
-        <property name="xalign">0</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
       </object>
@@ -586,7 +582,6 @@
         <property name="receives_default">False</property>
         <property name="halign">start</property>
         <property name="margin_left">10</property>
-        <property name="xalign">0</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
         <property name="group">radio_SSH_pwd</property>
@@ -608,7 +603,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="margin_left">10</property>
-            <property name="xalign">0</property>
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">radio_SSH_pwd</property>
@@ -1043,7 +1037,6 @@
         <property name="halign">end</property>
         <property name="margin_right">32</property>
         <property name="margin_top">2</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -1204,7 +1197,7 @@
           <object class="GtkLabel" id="label58">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">"Real VNC"</property>
+            <property name="label" translatable="yes">"TigerVNC"</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -1240,6 +1233,7 @@
                 <property name="tooltip_text" translatable="yes">Поддерживается следующий формат:
  - сервер
  - сервер:порт</property>
+                <signal name="activate" handler="onButtonConnect" swapped="no"/>
               </object>
             </child>
           </object>
@@ -1270,13 +1264,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="check_VNC1_fullscreen">
-        <property name="label" translatable="yes">Развернуть на весь экран</property>
+      <object class="GtkLabel" id="label37">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="xalign">0</property>
-        <property name="draw_indicator">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Нажмите F8 после подключения для дополнительных параметров</property>
+        <attributes>
+          <attribute name="font-desc" value="&lt;Введите значение&gt; 7"/>
+        </attributes>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -1285,14 +1280,12 @@
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="check_VNC1_showcursor">
-        <property name="label" translatable="yes">Показывать удаленный курсор</property>
+      <object class="GtkCheckButton" id="check_VNC1_fullscreen">
+        <property name="label" translatable="yes">Развернуть на весь экран</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
-        <property name="active">True</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -1308,24 +1301,7 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">4</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label37">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">Нажмите F8 после подключения для дополнительных параметров</property>
-        <attributes>
-          <attribute name="font-desc" value="&lt;Введите значение&gt; 7"/>
-        </attributes>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -1343,7 +1319,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">6</property>
+        <property name="position">5</property>
       </packing>
     </child>
     <child>
@@ -1813,7 +1789,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
+                        <property name="halign">start</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                       </object>
@@ -1829,7 +1805,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
+                        <property name="halign">start</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="offResolutionSet" object="entry_RDP1_resolution" swapped="no"/>
@@ -1846,7 +1822,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
+                        <property name="halign">start</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radio_RDP1_resol_default</property>
                         <signal name="toggled" handler="offResolutionSet" object="entry_RDP1_resolution" swapped="no"/>
@@ -1867,7 +1843,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
                             <property name="group">radio_RDP1_resol_default</property>
                             <signal name="toggled" handler="onResolutionSet" object="entry_RDP1_resolution" swapped="no"/>
@@ -1914,121 +1889,209 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSeparator" id="separator29">
+              <object class="GtkFrame">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_top">10</property>
-                <property name="margin_bottom">10</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="box71">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="margin_left">4</property>
+                <property name="margin_right">4</property>
+                <property name="margin_bottom">4</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
                 <child>
-                  <object class="GtkCheckButton" id="check_RDP1_folder">
-                    <property name="label" translatable="yes">Общая папка: </property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFileChooserButton" id="RDP1_share_folder">
+                  <object class="GtkAlignment">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="action">select-folder</property>
-                    <property name="title" translatable="yes">Выберите папку</property>
-                    <signal name="set-focus-child" handler="onFolderChoose" object="check_RDP1_folder" swapped="no"/>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="column_homogeneous">True</property>
+                            <child>
+                              <object class="GtkCheckButton" id="check_RDP1_usb">
+                                <property name="label" translatable="yes">USB-накопители</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_RDP1_cards">
+                                <property name="label" translatable="yes">Cмарт-карты</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_RDP1_printers">
+                                <property name="label" translatable="yes">Принтеры</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkCheckButton" id="check_RDP1_clipboard">
+                                <property name="label" translatable="yes">Буфер обмена</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="margin_bottom">2</property>
+                            <property name="label" translatable="yes">Перенаправление папок:</property>
+                            <attributes>
+                              <attribute name="underline" value="True"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="check_RDP1_desktop">
+                            <property name="label" translatable="yes">Рабочий стол</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="check_RDP1_down">
+                            <property name="label" translatable="yes">Загрузки</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="check_RDP1_docs">
+                            <property name="label" translatable="yes">Документы</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box71">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkCheckButton" id="check_RDP1_folder">
+                                <property name="label" translatable="yes">Другая: </property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFileChooserButton" id="RDP1_share_folder">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="action">select-folder</property>
+                                <property name="title" translatable="yes">Выберите папку</property>
+                                <signal name="set-focus-child" handler="onFolderChoose" object="check_RDP1_folder" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">5</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
                   </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="check_RDP1_clipboard">
-                <property name="label" translatable="yes">Буфер обмена</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="xalign">0</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <child type="label">
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Общие ресурсы</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">8</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="check_RDP1_usb">
-                <property name="label" translatable="yes">Внешние накопители</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">9</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="check_RDP1_printers">
-                <property name="label" translatable="yes">Принтеры</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">10</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="check_RDP1_cards">
-                <property name="label" translatable="yes">Cмарт-карты</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">11</property>
               </packing>
             </child>
           </object>
@@ -2257,7 +2320,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2273,7 +2335,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2289,13 +2350,29 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="onSpanOn" object="check_RDP1_span" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="check_RDP1_span">
+                <property name="label" translatable="yes">Span screen over multiple monitors</property>
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -2308,7 +2385,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">9</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -2318,13 +2395,12 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">10</property>
+                <property name="position">11</property>
               </packing>
             </child>
             <child>
@@ -2334,7 +2410,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -2417,7 +2492,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="onComprSet" object="entry_RDP1_compr_level" swapped="no"/>
                   </object>
@@ -2476,7 +2550,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2492,7 +2565,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2508,7 +2580,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2524,7 +2595,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2540,7 +2610,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -2557,7 +2626,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -2587,7 +2655,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -2607,7 +2674,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="halign">start</property>
-                    <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="onJpegSet" object="box84" swapped="no"/>
                   </object>
@@ -3068,11 +3134,9 @@
         <child>
           <object class="GtkCheckButton" id="check_VNC_fullscreen">
             <property name="label" translatable="yes">Развернуть на весь экран</property>
-            <property name="width_request">235</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -3095,7 +3159,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
       </object>
@@ -3112,7 +3175,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -3128,7 +3190,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -3144,7 +3205,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -3420,7 +3480,6 @@
             <property name="receives_default">False</property>
             <property name="halign">end</property>
             <property name="margin_left">18</property>
-            <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -3541,7 +3600,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -3556,7 +3615,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="offResolutionSet" object="entry_NX_resolution" swapped="no"/>
@@ -3577,7 +3636,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
+                    <property name="halign">start</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">radio_NX_resol_window</property>
                     <signal name="toggled" handler="onResolutionSet" object="entry_NX_resolution" swapped="no"/>
@@ -3686,7 +3745,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -3702,7 +3760,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -3993,7 +4050,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -4008,7 +4065,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="offResolutionSet" object="entry_XDMCP_resolution" swapped="no"/>
@@ -4029,7 +4086,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
+                    <property name="halign">start</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">radio_XDMCP_resol_default</property>
                     <signal name="toggled" handler="onResolutionSet" object="entry_XDMCP_resolution" swapped="no"/>
@@ -4138,7 +4195,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -4154,7 +4210,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -4600,7 +4655,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -4616,7 +4671,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="offResolutionSet" object="entry_RDP_resolution" swapped="no"/>
@@ -4637,7 +4692,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
+                    <property name="halign">start</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">radio_RDP_resol_default</property>
                     <signal name="toggled" handler="onResolutionSet" object="entry_RDP_resolution" swapped="no"/>
@@ -4760,7 +4815,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -4797,7 +4852,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -4813,7 +4867,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="draw_indicator">True</property>
       </object>
       <packing>
@@ -4829,7 +4882,6 @@
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="halign">start</property>
-        <property name="xalign">0</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
       </object>
