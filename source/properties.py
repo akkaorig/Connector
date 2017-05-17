@@ -3,8 +3,20 @@
 
 """Модуль управления параметрами Коннектора"""
 import pickle, gui
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from GLOBAL import *
+import logging, tarfile
+
+os.system("mkdir -p " + LOGFOLDER)
+logging.basicConfig (
+    filename = LOGFILE,
+    format = "--- %(levelname)-10s %(asctime)s --- %(message)s",
+    level = logging.INFO
+)
+
+log = logging.getLogger("connector")
 
 def loadFromFile(fileName, window = None):
     """Загрузка сохраненных параметров из файла"""
@@ -16,6 +28,7 @@ def loadFromFile(fileName, window = None):
     except FileNotFoundError:
         if fileName.find('default.conf') != -1: #если загружаем параметры программы
             #при неудаче - создает файл со значениями по умолчанию
+            log.warning ("Файл с настройками по умолчанию (default.conf) не найден, сгенерирован новый!")
             saveInFile(fileName, DEFAULT)
             return DEFAULT
         else: #если загружаем параметры одного из сохраненных подключений
@@ -23,20 +36,30 @@ def loadFromFile(fileName, window = None):
                     "Файл " + fileName + "\nc сохраненными настройками не найден")
             response = dialog.run()
             dialog.destroy()
+            log.exception("Файл %s c сохраненными настройками не найден! Подробнее:", fileName)
             return None
     except pickle.UnpicklingError:
         dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
                  "Файл " + fileName + "\nимеет неверный формат")
         response = dialog.run()
         dialog.destroy()
+        log.exception("Файл %s имеет неверный формат! Подробнее:", fileName)
         return None
 
-def importFromFile(fileName):
+def importFromFile(fileName, window = None):
     """Импорт параметров из файла .ctor"""
-    dbfile = open(fileName, 'rb')
-    obj = pickle.load(dbfile)
-    dbfile.close()
-    return obj	        
+    try:
+        dbfile = open(fileName, 'rb')
+        obj = pickle.load(dbfile)
+        dbfile.close()
+        return obj
+    except pickle.UnpicklingError:
+        dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
+                 "Файл " + fileName + "\nимеет неверный формат")
+        response = dialog.run()
+        dialog.destroy()
+        log.exception("Файл %s имеет неверный формат! Подробнее:", fileName)
+        return None
 
 def saveInFile(fileName, obj):
     """Запись параметров в файл:
@@ -55,10 +78,58 @@ def searchSshUser(query):
         server = query
     return server, login
 
+def filenameFromName(name):
+    """Определение имени конфигурационного файла подключения по имени подключения"""
+    try:
+        for connect in open(WORKFOLDER + "connections.db"):
+            record = connect.strip().split(':::')
+            if record[0] == name:
+                return record[3]
+    except FileNotFoundError:
+        log.warning("Файл сохраненных подключений (connections.db) не найден!")
+    return False
+
+def searchName(name):
+    """Существует ли подключение с указанным именем"""
+    try:
+        for connect in open(WORKFOLDER + "connections.db"):
+            record = connect.strip().split(':::')
+            if record[0] == name:
+                return True
+    except FileNotFoundError:
+        log.warning("Файл сохраненных подключений (connections.db) не найден!")
+    return False
+
+def checkLogFile(filePath):
+    """Функция проверки размера лог-файла и его архивация, если он больше 10Мб"""
+    exists = not bool(int(subprocess.check_output("stat " + filePath + " > /dev/null 2>&1; echo $?; exit 0", 
+                                                  shell=True, universal_newlines=True).strip()))
+    if exists:
+        sizeLog = int(subprocess.check_output("stat -c%s " + filePath + "; exit 0",
+                                              shell=True, universal_newlines=True).strip())
+        if sizeLog > 10000000:
+            import tarfile; from datetime import datetime
+            defaultPath = os.getcwd()
+            os.chdir(LOGFOLDER)
+            fileName = os.path.basename(filePath)
+            #'2017-04-05 15:09:52.981053' -> 20170405:
+            dt = datetime.today()
+            today = str(dt).split(' ')[0].split('-'); today = ''.join(today)
+            tarName = filePath + '.' + today + '.tgz'
+            tar = tarfile.open (tarName, "w:gz")
+            tar.add(fileName); os.remove(fileName)
+            os.chdir(defaultPath)
+            tar.close()
+            msg = "Логфайл %s превысил допустимый размер (10Мб), упакован в архив %s" % (fileName, os.path.basename(tarName))
+            if filePath == LOGFILE:
+                os.system('echo "--- INFO       ' + str(dt) + ' ' + msg + '" > ' + LOGFILE)
+            else: log.info(msg)
+
 class Properties(Gtk.Window):
-    def __init__(self):
+    def __init__(self, rdp, vnc):
         Gtk.Window.__init__(self, title = "Параметры программы")
-        builder = Gtk.Builder()        
+        builder = Gtk.Builder()
+        self.labelRDP, self.labelVNC = rdp, vnc
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_resizable(False)
         self.set_modal(True)
@@ -102,6 +173,8 @@ class Properties(Gtk.Window):
         self.program['TAB'] = self.combo_tabs.get_active_id()
         saveInFile('default.conf',self.program)
         gui.viewStatus(self.statusbar, "Настройки сохранены в файле default.conf...")
+        log.info("Новые настройки для программы сохранены в файле default.conf.")
+        gui.Gui.initLabels(True, self.labelRDP, self.labelVNC)
 
     def clearFile(self, filename, title, message):
         """Функция для очисти БД серверов или списка подключений"""
@@ -112,6 +185,7 @@ class Properties(Gtk.Window):
             f = open(WORKFOLDER + filename,"w")
             f.close()
             gui.viewStatus(self.statusbar, "Выполнено, изменения вступят в силу после перезапуска...")
+            log.info("Очищен файл %s", filename)
         dialog.destroy()    
 
     def onClearServers(self, widget):
