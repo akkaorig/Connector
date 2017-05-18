@@ -1,12 +1,10 @@
-**Connector** (для [Alt Linux](http://www.altlinux.ru/))
-
-beta-version - mode-kiosk + vbox
+**Connector**
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 **Программа для удаленного подключения к компьютерным системам.**
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 Инструмент системного администратора для осуществления удаленного доступа к компьютерам с различными операционными системами с использованием распространенных типов подключения - таких как VNC, RDP, NX, XDMCP, SSH, SFTP и с помощью технологий Citrix и VMware. Также есть возможность подключения к web-ресурсам.
 
 * [Веб-сайт проекта](http://www.myconnector.ru)
-* [Wiki-страничка](http://wiki.myconnector.ru) [(скачать руководство пользователя)] ( http://www.myconnector.ru/wiki/Connector_wiki.pdf)
+* [Wiki-страничка](http://wiki.myconnector.ru) ([руководство пользователя](http://www.myconnector.ru/wiki/Connector_wiki.pdf))
 * [Связь с разработчиком](mailto:ek@myconnector.ru)
 * [Поддержите проект](http://www.myconnector.ru/donate.html)
