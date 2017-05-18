@@ -14,7 +14,7 @@ DEFAULT = dict(RDP = 1, VNC = 1, TAB = '0')
 
 #Версия и релиз приложения
 VERSION = "1.4.1"
-RELEASE = "1"
+RELEASE = "2"
 
 #Исходные данные для ярлыка подключения
 DESKTOP_INFO ="""#!/usr/bin/env xdg-open
